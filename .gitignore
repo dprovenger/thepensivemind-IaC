@@ -5,6 +5,24 @@
 *.tfstate
 *.tfstate.*
 
+# Additional terraform files added by ./JA
+terraform.tfstate
+terraform.tfstate.backup
+# Terraform plan files added by ./JA
+*.tfplan 
+# Terraform plugins files added by ./JA
+.terraform/
+.terraform.lock.hcl
+# Editor-specific files and temp files added by ./JA
+.vscode/
+*.swp
+*.swo
+# Environment files added by ./JA
+.env
+# Backup files added by ./JA
+*.bak 
+*.tmp 
+
 # Crash log files
 crash.log
 crash.*.log
