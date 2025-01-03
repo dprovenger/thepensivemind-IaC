@@ -38,7 +38,7 @@ data "aws_ami" "ubuntu" {
 
 # Associating existing EIP to new instance
 resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.web-thepensivemind.subnet_id
+  instance_id   = aws_instance.web-thepensivemind.id
   allocation_id = eipalloc-0d10cf5a6edc29356
 }
 
