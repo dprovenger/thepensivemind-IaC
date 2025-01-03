@@ -36,11 +36,14 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
-# Associating existing EIP to new instance
-resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.web-thepensivemind.id
-  allocation_id = eipalloc-0d10cf5a6edc29356
+# Fetching the existing Elastic IP dynamically
+data "aws_eip" "existing_eip" {
+  filter {
+    name   = "tag:Environment"
+    values = ["thepensivemind.com"]
+  }
 }
+
 
 # EC2 web server instance creation
 resource "aws_instance" "web-thepensivemind" {
@@ -54,4 +57,10 @@ resource "aws_instance" "web-thepensivemind" {
     "Environment" = "thepensivemind.com"
     "Terraform"   = "true"
   }
+}
+
+# Associating existing EIP to new instance
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.web-thepensivemind.id
+  allocation_id = data.aws_eip.existing_eip.id
 }
