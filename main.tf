@@ -12,7 +12,7 @@ terraform {
   }
 }
 
-# Configure the AWS Provider
+# Configure the AWS Provider and region
 provider "aws" {
   region     = "us-east-1"
 }
@@ -34,7 +34,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
-# Fetching the existing Elastic IP dynamically
+# Fetching the existing Elastic IP dynamically, based on its tag
 data "aws_eip" "existing_eip" {
   filter {
     name   = "tag:Environment"
@@ -43,7 +43,7 @@ data "aws_eip" "existing_eip" {
 }
 
 
-# EC2 web server instance creation
+# EC2 web server instance creation from most recent Ubuntu ami looked up above
 resource "aws_instance" "web-thepensivemind" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
@@ -57,7 +57,7 @@ resource "aws_instance" "web-thepensivemind" {
   }
 }
 
-# Associating existing EIP to new instance
+# Associating existing Elastic IP to new Ubuntu instance
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.web-thepensivemind.id
   allocation_id = data.aws_eip.existing_eip.id
