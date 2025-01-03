@@ -35,3 +35,17 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
+
+# EC2 web server instance creation
+resource "aws_instance" "web-thepensivemind" {
+  ami = data.aws_ami.ubuntu.AWS_ACCESS_KEY_ID
+  instance_type = "t2.micro"
+  key_name = "dev-linux-thepensivemind"
+  subnet_id = "subnet-fa80fc9c"
+  vpc_security_group_ids = ["sg-0ea1c87624830a457"]
+
+  tags = {
+    "Environment" = "thepensivemind.com"
+    "Terraform" = "true"
+  }
+}
