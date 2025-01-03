@@ -44,7 +44,7 @@ resource "aws_eip_association" "eip_assoc" {
 
 # EC2 web server instance creation
 resource "aws_instance" "web-thepensivemind" {
-  ami                    = data.aws_ami.ubuntu.AWS_ACCESS_KEY_ID
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   key_name               = "dev-linux-thepensivemind"
   subnet_id              = "subnet-fa80fc9c"
