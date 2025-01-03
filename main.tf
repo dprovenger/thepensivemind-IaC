@@ -14,7 +14,7 @@ terraform {
 
 # Configure the AWS Provider and region
 provider "aws" {
-  region     = "us-east-1"
+  region = "us-east-1"
 }
 
 # Latest Ubuntu image lookup
@@ -50,6 +50,7 @@ resource "aws_instance" "web-thepensivemind" {
   key_name               = "dev-linux-thepensivemind"
   subnet_id              = "subnet-fa80fc9c"
   vpc_security_group_ids = ["sg-0ea1c87624830a457"]
+  user_data              = file("ubuntuUserData.sh")
 
   tags = {
     "Environment" = "thepensivemind.com"
