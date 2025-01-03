@@ -21,5 +21,8 @@ sudo certbot --nginx -d aw.thepensivemind.com --non-interactive --agree-tos --em
 # Reload Nginx
 sudo systemctl reload nginx
 
+# Installing index.html file
+echo "${file("index.html")}" > /var/www/html/index.html
+
 # Installing networking utilities
 sudo apt -y install net-tools 
